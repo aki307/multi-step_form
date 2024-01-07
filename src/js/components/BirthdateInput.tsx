@@ -11,34 +11,36 @@ const monthOptions = Array.from({ length: 12 }, (_, i) => (
 const BirthdateInput: React.FC = () => {
   const [selectedYear, setSelectedYear] = useState<number>(currentYear);
   const [selectedMonth, setSelectedMonth] = useState<number>(1);
+  const [selectedDay, setSelectedDay] = useState<number>(1); // 追加: 選択された日
 
   const daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
   const dayOptions = Array.from({ length: daysInMonth }, (_, i) => (
     <option key={i} value={i + 1}>{i + 1}日</option>
   ));
+
   return (
     <div className="field">
       <label className="label">-生年月日-</label>
       <div className="field is-grouped">
         <div className="control">
           <div className="select">
-          <select value={selectedYear} onChange={e => setSelectedYear(parseInt(e.target.value))}>
-            {yearOptions}
-          </select>
+            <select value={selectedYear} onChange={e => setSelectedYear(parseInt(e.target.value))}>
+              {yearOptions}
+            </select>
           </div>
         </div>
         <div className="control">
           <div className="select">
-          <select value={selectedMonth} onChange={e => setSelectedMonth(parseInt(e.target.value))}>
-            {monthOptions}
-          </select>
+            <select value={selectedMonth} onChange={e => setSelectedMonth(parseInt(e.target.value))}>
+              {monthOptions}
+            </select>
           </div>
         </div>
         <div className="control">
           <div className="select">
-          <select>
-            {dayOptions}
-          </select>
+            <select value={selectedDay} onChange={e => setSelectedDay(parseInt(e.target.value))}>
+              {dayOptions}
+            </select>
           </div>
         </div>
       </div>

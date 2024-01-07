@@ -117,7 +117,7 @@ export default class Second extends Component<{}, IState> {
         </div>
         {/* 元に戻る/次に進む　ボタン */}
         <div className="double-button">
-          <Link to="/"><button className="button is-link"><FaChevronLeft style={{ verticalAlign: '-3px' }} />　前へ戻る</button></Link>
+          <Link to="/first"><button className="button is-link"><FaChevronLeft style={{ verticalAlign: '-3px' }} />　前へ戻る</button></Link>
           <Link to="/third"><button className="button is-link" disabled={!allQuestionsAnswered}>次へ進む　<FaChevronRight style={{ verticalAlign: '-3px' }} /></button></Link>
         </div>
       </section>

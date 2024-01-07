@@ -4,12 +4,18 @@ import { FaAddressCard, FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import BirthdateInput from '../components/BirthdateInput';
 
+import { connect } from 'react-redux';
+import { RootState } from '../reducers';
+import { setGender } from '../actions';
+
+
 interface IState {
   gender: string;
 }
 
-export default class First extends React.Component {
 
+
+class First extends Component<{}, IState> {
   state: IState = {
     gender: '',
   };
@@ -21,13 +27,16 @@ export default class First extends React.Component {
   render() {
     const { gender } = this.state;
     const isGenderSelected = gender !== '';
+    
+    console.log(this.props);
+
     return (
       <section className="section">
         <div className="container border">
           <div className="columns is-vcentered">
             {/* Step1 */}
             <div className="column is-narrow">
-              <div className="tags has-addons" >
+              <div className="tags has-addons">
                 <span className="tag is-medium is-info">STEP1</span>
               </div>
             </div>
@@ -61,8 +70,8 @@ export default class First extends React.Component {
               </form>
             </div>
           </div>
-
         </div>
+
         {/* 次へ進む */}
         <div className="has-text-centered">
           <Link to={isGenderSelected ? "/second" : "#"}>
@@ -73,4 +82,13 @@ export default class First extends React.Component {
     );
   }
 }
+const mapStateToProps = (state: RootState) => ({
+  selectedGender: state.gender.gender
+});
 
+const mapDispatchToProps = {
+  setGender
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(First);
+// export default First;
