@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import "../../App.css";
 import { FaRegFileAlt, FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { InsuranceContext } from '../context/InsuranceContext';
 
-export default class Third extends React.Component {
-  render() {
+export default function Third() {
+  
+    const insuranceContext = useContext(InsuranceContext);
+  if (!insuranceContext) {
+    throw new Error('InsuranceContext not provided');
+  }
+
+  const [consultation, setConsultation] = useState(insuranceContext.state.consultationContent);
+
+  const handleConsultationChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setConsultation(event.target.value);
+    insuranceContext.setConsultationContent(event.target.value);
+  };
+
     return (
       <section className="section">
         <div className="container border">
@@ -28,7 +41,7 @@ export default class Third extends React.Component {
                 {/* 相談内容 */}
                 <div className="field">
                   <label className="label textarea-label">-ご相談内容</label>
-                  <textarea className="textarea" rows={20}></textarea>
+                  <textarea className="textarea" rows={20} value={consultation} onChange={handleConsultationChange}></textarea>
                 </div>
               </form>
             </div>
@@ -38,9 +51,9 @@ export default class Third extends React.Component {
         {/* 元に戻る/次に進む　ボタン */}
         <div className="double-button">
           <Link to="/second"><button className="button is-link"><FaChevronLeft style={{ verticalAlign: '-3px' }} />　前へ戻る</button></Link>
-          <button className="button is-link">次へ進む　<FaChevronRight style={{ verticalAlign: '-3px' }} /></button>
+          <Link to="/confirmation"> <button className="button is-link">次へ進む　<FaChevronRight style={{ verticalAlign: '-3px' }} /></button></Link>
         </div>
       </section>
     );
   }
-}
+
